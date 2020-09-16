@@ -1,0 +1,4 @@
+mutant:
+  config:
+    sequenceSize: 4
+    minimumSequencesMatched: 2
