@@ -9,7 +9,7 @@ import java.util.List;
 public class DnaValidator {
 
     public void validateDna(List<String> dna) {
-        boolean isValid = dna.stream()
+        var isValid = dna.stream()
                 .allMatch(s -> s.matches("^[ATCG]{6}$"));
         if (!isValid) {
             throw new DnaMalformedExeption("DNA invalid");

@@ -85,16 +85,16 @@ public class MutantDetectorImpl implements MutantDetector {
     }
 
     private boolean isMutantSequence(String sequence) {
-        char[] chars = sequence.toCharArray();
+        var chars = sequence.toCharArray();
         return sequenceMatch(chars, 0);
     }
 
     private boolean sequenceMatch(char[] chars, int index) {
 
-        int sequenceSalt = sequenceSize - 1;
-        int externalLimit = index + sequenceSalt;
+        var sequenceSalt = sequenceSize - 1;
+        var externalLimit = index + sequenceSalt;
         if (externalLimit < chars.length) {
-            char charIndex = chars[index];
+            var charIndex = chars[index];
             if (charIndex == chars[externalLimit]) {
                 return validateInternalSequence(chars, charIndex, index, externalLimit);
             }
@@ -104,7 +104,7 @@ public class MutantDetectorImpl implements MutantDetector {
     }
 
     private boolean validateInternalSequence(char[] chars, char charIndex, int index, int externalLimit) {
-        boolean allMatch = true;
+        var allMatch = true;
 
         while (index < externalLimit && allMatch) {
             allMatch = charIndex == chars[++index];

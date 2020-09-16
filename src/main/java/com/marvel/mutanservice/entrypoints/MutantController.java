@@ -26,7 +26,7 @@ public class MutantController {
 
         List<String> dna = dnaRequest.getDna();
         dnaValidator.validateDna(dna);
-        boolean mutant = mutantDetector.isMutant(dna);
+        var mutant = mutantDetector.isMutant(dna);
 
         return ResponseEntity.status(mutant ? HttpStatus.OK : HttpStatus.FORBIDDEN).build();
 
