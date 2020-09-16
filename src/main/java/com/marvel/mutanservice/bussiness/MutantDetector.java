@@ -2,7 +2,7 @@ package com.marvel.mutanservice.bussiness;
 
 import java.util.List;
 
-public interface MutantValidator {
+public interface MutantDetector {
 
     boolean isMutant(List<String> dna);
 }

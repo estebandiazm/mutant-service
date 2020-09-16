@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
-public class MutantValidatorImpl implements MutantValidator {
+public class MutantDetectorImpl implements MutantDetector {
 
     @Value("${mutant.config.sequenceSize}")
     private int sequenceSize;

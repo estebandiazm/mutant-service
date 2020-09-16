@@ -11,7 +11,7 @@ import java.util.List;
 class MutantValidatorTest {
 
 
-    @Autowired private MutantValidatorImpl mutantValidator;
+    @Autowired private MutantDetectorImpl mutantValidator;
 
     @Test
     void isMutant() {
