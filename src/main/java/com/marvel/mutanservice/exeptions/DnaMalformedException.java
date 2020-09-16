@@ -4,15 +4,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-public class DnaMalformedExeption extends RuntimeException{
-    public DnaMalformedExeption() {
+public class DnaMalformedException extends RuntimeException{
+    public DnaMalformedException() {
     }
 
-    public DnaMalformedExeption(String message) {
+    public DnaMalformedException(String message) {
         super(message);
     }
 
-    public DnaMalformedExeption(String message, Throwable cause) {
+    public DnaMalformedException(String message, Throwable cause) {
         super(message, cause);
     }
 }

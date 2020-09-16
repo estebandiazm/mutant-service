@@ -1,36 +1,31 @@
 package com.marvel.mutanservice.entrypoints;
 
-import com.marvel.mutanservice.bussiness.DnaValidator;
-import com.marvel.mutanservice.bussiness.MutantDetector;
 import com.marvel.mutanservice.entrypoints.dto.DnaRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+public interface MutantController {
 
-@RestController
-@RequiredArgsConstructor
-@RequestMapping("/mutant")
-public class MutantController {
-
-    private final MutantDetector mutantDetector;
-    private final DnaValidator dnaValidator;
-
-    @PostMapping
-    public ResponseEntity validateMutant(@RequestBody DnaRequest dnaRequest) {
-
-        List<String> dna = dnaRequest.getDna();
-        dnaValidator.validateDna(dna);
-        var mutant = mutantDetector.isMutant(dna);
-
-        return ResponseEntity.status(mutant ? HttpStatus.OK : HttpStatus.FORBIDDEN).build();
-
-    }
+    @Operation(summary = "Evaluate if DAN is mutant or not")
+    @ApiResponse(responseCode = "200", description = "when DNA is Mutant")
+    @ApiResponse(responseCode = "403", description = "when DNA is Human")
+    @RequestBody(
+            content = @Content(
+                    examples = {
+                            @ExampleObject(
+                                    name = "DNA Mutant",
+                                    value = "{\n\t\"dna\":[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGAAGG\",\"CCCCTA\",\"TCACTG\"]\n}"
+                            ),
+                            @ExampleObject(
+                                    name = "DNA Human",
+                                    value = "{\n\t\"dna\":[\"TTGCGA\",\"CAGTGC\",\"TTATGT\",\"AGAAGG\",\"GCCCTA\",\"TCACTG\"]\n}"
+                            )
+                    }
+            )
+    )
+    ResponseEntity validateMutant(DnaRequest dnaRequest);
 }
-
-
