@@ -10,7 +10,7 @@ public class DnaValidator {
 
     public void validateDna(List<String> dna) {
         var isValid = dna.stream()
-                .allMatch(s -> s.matches("^[ATCG]{6}$"));
+                .allMatch(s -> s.matches(String.format("^[ATCG]{%d}$", dna.size())));
         if (!isValid) {
             throw new DnaMalformedException("DNA invalid");
         }
