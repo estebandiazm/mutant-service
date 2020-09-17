@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -35,23 +36,25 @@ public class MutantDetectorImpl implements MutantDetector {
         return Arrays.asList(
                 this::executeSequenceScan,
                 dna -> executeSequenceScan(buildVerticalAdn(dna)),
-                dna -> executeSequenceScan(buildDiagonalDown(dna)),
-                dna -> executeSequenceScan(buildDiagonalUp(dna))
+                dna -> executeSequenceScan(buildDiagonals(dna)),
+                dna -> executeSequenceScan(buildDiagonals(buildVerticalAdn(dna)))
         );
     }
 
-    private String buildDiagonalDown(List<String> dna) {
-        return IntStream.range(0, dna.size())
-                .mapToObj(index -> dna.get(index).toCharArray()[index])
-                .map(Object::toString)
-                .collect(Collectors.joining());
-    }
+    private List<String> buildDiagonals(List<String> dna) {
 
-    private String buildDiagonalUp(List<String> dna) {
-        return IntStream.range(1, dna.size())
-                .mapToObj(index -> dna.get(index).toCharArray()[dna.size() - index])
+        IntFunction<String> getDiagonal = row -> IntStream.range(0, dna.size() - Math.abs(row))
+                .mapToObj(column ->
+                        dna.get(row < 0 ? column : Math.abs(row) + column)
+                                .toCharArray()[row < 0 ? Math.abs(row) + column : column]
+                )
                 .map(Object::toString)
                 .collect(Collectors.joining());
+
+        return IntStream.range(Math.negateExact(dna.size() - sequenceSize), dna.size())
+                .takeWhile(row -> dna.size() - Math.abs(row) >= sequenceSize)
+                .mapToObj(getDiagonal)
+                .collect(Collectors.toList());
     }
 
     private List<String> buildVerticalAdn(List<String> dna) {
