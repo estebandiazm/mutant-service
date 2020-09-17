@@ -2,6 +2,7 @@ package com.marvel.mutanservice.entrypoints;
 
 import com.marvel.mutanservice.bussiness.DnaValidator;
 import com.marvel.mutanservice.bussiness.MutantDetector;
+import com.marvel.mutanservice.bussiness.MutantStatService;
 import com.marvel.mutanservice.entrypoints.dto.DnaRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ public class MutantControllerImpl implements MutantController {
 
     private final MutantDetector mutantDetector;
     private final DnaValidator dnaValidator;
+    private final MutantStatService mutantStatService;
 
     @PostMapping
     public ResponseEntity validateMutant(@RequestBody DnaRequest dnaRequest) {
@@ -27,7 +29,7 @@ public class MutantControllerImpl implements MutantController {
         List<String> dna = dnaRequest.getDna();
         dnaValidator.validateDna(dna);
         var mutant = mutantDetector.isMutant(dna);
-
+        mutantStatService.createMutantStat(dna.toString(), mutant);
         return ResponseEntity.status(mutant ? HttpStatus.OK : HttpStatus.FORBIDDEN).build();
 
     }
