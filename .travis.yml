@@ -3,3 +3,6 @@ sudo: false
 
 jdk:
   - oraclejdk11
+
+script:
+    - ./gradlew build jacocoTestReport
