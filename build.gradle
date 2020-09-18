@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.3.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
+    id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 apply plugin: 'jacoco'
 
@@ -17,6 +18,13 @@ configurations {
 
 repositories {
     mavenCentral()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
 }
 
 dependencies {
