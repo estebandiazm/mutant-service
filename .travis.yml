@@ -4,4 +4,4 @@ jdk:
   - oraclejdk11
 
 script:
-    - ./gradlew build jacocoTestReport coveralls
+    - ./gradlew -Djdk.tls.client.protocols="TLSv1,TLSv1.1,TLSv1.2" build jacocoTestReport coveralls
