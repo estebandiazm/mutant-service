@@ -13,6 +13,7 @@ For building and running the application you need:
 - [Gradle 6](https://gradle.org/install/)
 - [Docker](https://docs.docker.com/get-docker/)
 - [MongoDB](https://www.mongodb.com/es)
+- [Lombok Plugin](https://projectlombok.org/)
 
 ## Running the application locally
 
