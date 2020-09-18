@@ -6,3 +6,6 @@ spring:
   cloud:
     gcp:
       project-id: mutant-service
+  data:
+    mongodb:
+      uri: mongodb://mutant-service-usr:mutant-service-pwd@cluster0-shard-00-00.icwpd.gcp.mongodb.net:27017,cluster0-shard-00-01.icwpd.gcp.mongodb.net:27017,cluster0-shard-00-02.icwpd.gcp.mongodb.net:27017/mutant?ssl=true&replicaSet=atlas-13adtm-shard-0&authSource=admin&retryWrites=true&w=majority

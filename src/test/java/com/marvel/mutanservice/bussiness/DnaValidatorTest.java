@@ -1,16 +1,19 @@
 package com.marvel.mutanservice.bussiness;
 
+import com.marvel.mutanservice.MutantServiceApplication;
+import com.marvel.mutanservice.configuration.FirestoreConfigurationTest;
 import com.marvel.mutanservice.exeptions.DnaMalformedException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-@SpringBootTest
+@ActiveProfiles("test")
+@SpringBootTest(classes = {MutantServiceApplication.class, FirestoreConfigurationTest.class})
 class DnaValidatorTest {
 
     @Autowired private DnaValidator dnaValidator;

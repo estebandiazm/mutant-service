@@ -18,7 +18,7 @@ public class MutantStatService {
 
     private final MutantStatDao mutantStatDao;
 
-    public MutantStat retieveMutantStats() {
+    public MutantStat retrieveMutantStats() {
         List<DnaInfo> mutantStats = mutantStatDao.getMutantStats();
         var mutants = mutantStats.stream()
                 .filter(DnaInfo::isMutant)
@@ -34,15 +34,10 @@ public class MutantStatService {
     }
 
     public void createMutantStat(String dnaKey, boolean isMutant) {
+        DnaInfo dnaInfo = new DnaInfo()
+                .withDna(dnaKey)
+                .withMutant(isMutant);
 
-        try {
-            DnaInfo dnaInfo = new DnaInfo()
-                    .withDna(dnaKey)
-                    .withMutant(isMutant);
-
-            mutantStatDao.insertMutantStat(dnaInfo);
-        } catch (IOException | ExecutionException | InterruptedException e) {
-            log.error("Error storing mutant stat {} {}", dnaKey, isMutant);
-        }
+        mutantStatDao.insertMutantStat(dnaInfo);
     }
 }

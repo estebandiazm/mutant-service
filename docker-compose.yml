@@ -1,0 +1,9 @@
+version: '3'
+services:
+  database:
+    image: 'mongo'
+    container_name: 'mutant-db-container'
+    environment:
+      - MONGO_INITDB_DATABASE=mutant-db
+    ports:
+      - '27017:27017'

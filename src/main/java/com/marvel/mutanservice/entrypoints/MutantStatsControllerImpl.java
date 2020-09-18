@@ -20,7 +20,7 @@ public class MutantStatsControllerImpl implements MutantStatsController {
     @Override
     @GetMapping
     public ResponseEntity retrieveMutantStat() {
-        MutantStat mutantStat = mutantStatService.retieveMutantStats();
+        MutantStat mutantStat = mutantStatService.retrieveMutantStats();
         return ResponseEntity.ok(
                 new MutantStatResponse()
                         .withCountMutant(mutantStat.getCountMutant())
