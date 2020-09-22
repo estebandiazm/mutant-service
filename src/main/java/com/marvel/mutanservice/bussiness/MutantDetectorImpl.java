@@ -1,5 +1,6 @@
 package com.marvel.mutanservice.bussiness;
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,7 @@ public class MutantDetectorImpl implements MutantDetector {
                 this::executeSequenceScan,
                 dna -> executeSequenceScan(buildVerticalAdn(dna)),
                 dna -> executeSequenceScan(buildDiagonals(dna)),
-                dna -> executeSequenceScan(buildDiagonals(buildVerticalAdn(dna)))
+                dna -> executeSequenceScan(buildDiagonals(Lists.reverse(buildVerticalAdn(dna))))
         );
     }
 
