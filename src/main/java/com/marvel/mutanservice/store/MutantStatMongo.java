@@ -3,8 +3,7 @@ package com.marvel.mutanservice.store;
 import com.marvel.mutanservice.models.DnaInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
@@ -12,8 +11,12 @@ public class MutantStatMongo implements MutantStatDao {
 
     private final MutantStatRepository repository;
 
-    @Override public List<DnaInfo> getMutantStats() {
-        return repository.findAll();
+    @Override public Mono<Long> getMutantsCount() {
+        return repository.countByMutantTrue();
+    }
+
+    @Override public Mono<Long> getHumansCount() {
+        return repository.countByMutantFalse();
     }
 
     @Override

@@ -1,11 +1,12 @@
 package com.marvel.mutanservice.store;
 
 import com.marvel.mutanservice.models.DnaInfo;
-
-import java.util.List;
+import reactor.core.publisher.Mono;
 
 public interface MutantStatDao {
 
-    List<DnaInfo> getMutantStats();
+    Mono<Long> getMutantsCount();
+    Mono<Long> getHumansCount();
+
     void insertMutantStat(DnaInfo dnaInfo);
 }

@@ -7,10 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -19,18 +15,20 @@ public class MutantStatService {
     private final MutantStatDao mutantStatDao;
 
     public MutantStat retrieveMutantStats() {
-        List<DnaInfo> mutantStats = mutantStatDao.getMutantStats();
-        var mutants = mutantStats.stream()
-                .filter(DnaInfo::isMutant)
-                .count();
 
-        var adnTotal = (long) mutantStats.size();
-        var countHuman = adnTotal - mutants;
-        var ratio = countHuman == 0 ? 1 : mutants / (double) countHuman;
-        return new MutantStat()
-                .withCountMutant(mutants)
-                .withCountHuman(countHuman)
-                .withRadio(ratio);
+        log.info(mutantStatDao.getHumansCount().block()+ "");
+
+       return  mutantStatDao.getMutantsCount()
+                .zipWith(mutantStatDao.getHumansCount())
+                .map(objects -> {
+                    long mutantCount = objects.getT1();
+                    long humanCount = objects.getT2();
+                    var ratio = humanCount == 0 ? 1 : mutantCount / (double) humanCount;
+                    return new MutantStat()
+                            .withCountMutant(mutantCount)
+                            .withCountHuman(humanCount)
+                            .withRadio(ratio);
+                }).block();
     }
 
     public void createMutantStat(String dnaKey, boolean isMutant) {

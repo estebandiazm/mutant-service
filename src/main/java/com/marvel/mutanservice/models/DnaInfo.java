@@ -12,5 +12,5 @@ import org.springframework.data.annotation.Id;
 public class DnaInfo {
     @With @Id
     private String dna;
-    @With private boolean isMutant;
+    @With private boolean mutant;
 }
