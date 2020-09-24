@@ -16,8 +16,6 @@ public class MutantStatService {
 
     public MutantStat retrieveMutantStats() {
 
-        log.info(mutantStatDao.getHumansCount().block()+ "");
-
        return  mutantStatDao.getMutantsCount()
                 .zipWith(mutantStatDao.getHumansCount())
                 .map(objects -> {

@@ -1,7 +1,10 @@
 package com.marvel.mutanservice.entrypoints;
 
-import com.marvel.mutanservice.store.MutantStatRepository;
+import com.marvel.mutanservice.bussiness.MutantStatService;
+import com.marvel.mutanservice.models.MutantStat;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +22,7 @@ class MutantStatsControllerTest {
 
     @Autowired private MutantStatsController mutantStatsController;
     @Autowired private MockMvc mockMvc;
-    @MockBean private MutantStatRepository mutantStatRepository;
+    @MockBean private MutantStatService mutantStatService;
 
     @Test void contextLoad() {
         assertNotNull(mutantStatsController);
@@ -27,6 +30,11 @@ class MutantStatsControllerTest {
 
     @Test void validateMutantSuccess() throws Exception {
 
+        Mockito.when(mutantStatService.retrieveMutantStats())
+        .thenReturn(new MutantStat()
+                .withCountHuman(1)
+                .withCountMutant(1)
+                .withRadio(1.0));
         this.mockMvc.perform(
                 get("/stats")
                         .contentType(MediaType.APPLICATION_JSON)

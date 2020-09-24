@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/stats")
-@SuppressWarnings("rawtypes")
 public class MutantStatsControllerImpl implements MutantStatsController {
 
     private final MutantStatService mutantStatService;
 
     @Override
     @GetMapping
-    public ResponseEntity retrieveMutantStat() {
+    public ResponseEntity<Object> retrieveMutantStat() {
         MutantStat mutantStat = mutantStatService.retrieveMutantStats();
         return ResponseEntity.ok(
                 new MutantStatResponse()

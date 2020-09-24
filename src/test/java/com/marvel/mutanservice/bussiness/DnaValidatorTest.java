@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
-@SpringBootTest(classes = {MutantServiceApplication.class, FirestoreConfigurationTest.class})
+@SpringBootTest(classes = {MutantServiceApplication.class})
 class DnaValidatorTest {
 
     @Autowired private DnaValidator dnaValidator;
@@ -40,5 +40,10 @@ class DnaValidatorTest {
     void validateDnaFailInvalidCharacter() {
         List<String> dna = List.of("ATGCAI","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG");
         assertThrows(DnaMalformedException.class, () -> dnaValidator.validateDna(dna));
+    }
+
+    @Test
+    void validateDnaFailNotPresent() {
+        assertThrows(DnaMalformedException.class, () -> dnaValidator.validateDna(null));
     }
 }

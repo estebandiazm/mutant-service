@@ -13,5 +13,5 @@ public interface MutantStatsController {
     @ApiResponse(responseCode = "200", description = "when DNA is Mutant",
             content = @Content(schema = @Schema(implementation = MutantStat.class),
                     examples = @ExampleObject(value = "{\n\t\"count_mutant_dna\":40,\n\t\"count_human_dna\":100, \n\t\"ratio\":0.4\n}")))
-    ResponseEntity retrieveMutantStat();
+    ResponseEntity<Object> retrieveMutantStat();
 }

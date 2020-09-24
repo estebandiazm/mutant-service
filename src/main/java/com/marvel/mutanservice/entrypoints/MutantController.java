@@ -27,5 +27,5 @@ public interface MutantController {
                     }
             )
     )
-    ResponseEntity validateMutant(DnaRequest dnaRequest);
+    ResponseEntity<Object> validateMutant(DnaRequest dnaRequest);
 }

@@ -1,7 +1,6 @@
 package com.marvel.mutanservice.bussiness;
 
 import com.marvel.mutanservice.MutantServiceApplication;
-import com.marvel.mutanservice.configuration.FirestoreConfigurationTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 @ActiveProfiles("test")
-@SpringBootTest(classes = {MutantServiceApplication.class, FirestoreConfigurationTest.class})
+@SpringBootTest(classes = {MutantServiceApplication.class})
 class MutantDetectorTest {
 
     @Autowired private MutantDetectorImpl mutantValidator;
